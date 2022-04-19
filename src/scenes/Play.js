@@ -93,6 +93,8 @@ class Play extends Phaser.Scene {
           fixedWidth: 100
       }
       this.scoreLeft = this.add.text(borderUISize + borderPadding, borderUISize + borderPadding*2, this.p1Score, scoreConfig);
+      
+      
 
 
       // GAME OVER flag
@@ -106,12 +108,16 @@ class Play extends Phaser.Scene {
           this.gameOver = true;
       }, null, this);
 
+      //this.timeRight = this.add.text(borderUISize + borderPadding + 300, borderUISize + borderPadding*2, this.clock.now, scoreConfig);
+
       this.sound.play('music');
 
       this.lasso.isAttached = false;
   }
 
   update() {
+      //this.timeRight.setText("Time: " + this.time.totalElapsedSeconds() )
+
       if(Phaser.Input.Keyboard.JustDown(keyL)) {
         //this.sound.stopAll();
       }
@@ -139,21 +145,24 @@ class Play extends Phaser.Scene {
       }
 
       // check collisions
-      if(this.checkCollision(this.p1Player.lasso, this.animal03) && !this.p1Player.lasso.isAttached && (this.p2Player.lasso.isAttachedTo != this.animal03)) {
-            this.p1Player.lasso.isAttached = true;
-            this.p1Player.lasso.isAttachedTo = this.animal03;
-            this.p1Player.hitTop = true;
+      if(game.settings.gamemode == 0) {
+        if(this.checkCollision(this.p1Player.lasso, this.animal03) && !this.p1Player.lasso.isAttached) {
+                this.p1Player.lasso.isAttached = true;
+                this.p1Player.lasso.isAttachedTo = this.animal03;
+                this.p1Player.hitTop = true;
+        }
+        if (this.checkCollision(this.p1Player.lasso, this.animal02) && !this.p1Player.lasso.isAttached) {
+                this.p1Player.lasso.isAttached = true;
+                this.p1Player.lasso.isAttachedTo = this.animal02;
+                this.p1Player.hitTop = true;
+        }
+        if (this.checkCollision(this.p1Player.lasso, this.animal01) && !this.p1Player.lasso.isAttached) {
+                this.p1Player.lasso.isAttached = true;
+                this.p1Player.lasso.isAttachedTo = this.animal01;
+                this.p1Player.hitTop = true;
+        }
       }
-      if (this.checkCollision(this.p1Player.lasso, this.animal02) && !this.p1Player.lasso.isAttached && (this.p2Player.lasso.isAttachedTo != this.animal02)) {
-            this.p1Player.lasso.isAttached = true;
-            this.p1Player.lasso.isAttachedTo = this.animal02;
-            this.p1Player.hitTop = true;
-      }
-      if (this.checkCollision(this.p1Player.lasso, this.animal01) && !this.p1Player.lasso.isAttached && (this.p2Player.lasso.isAttachedTo != this.animal01)) {
-            this.p1Player.lasso.isAttached = true;
-            this.p1Player.lasso.isAttachedTo = this.animal01;
-            this.p1Player.hitTop = true;
-      }
+      
     
       //if lasso is attached move cow with lasso
       if(this.p1Player.lasso.isAttached) {
@@ -168,6 +177,21 @@ class Play extends Phaser.Scene {
           this.p1Player.lasso.isAttachedTo = null;
       }
       if(game.settings.gamemode == 1) {
+            if(this.checkCollision(this.p1Player.lasso, this.animal03) && !this.p1Player.lasso.isAttached && (this.p2Player.lasso.isAttachedTo != this.animal03)) {
+                    this.p1Player.lasso.isAttached = true;
+                    this.p1Player.lasso.isAttachedTo = this.animal03;
+                    this.p1Player.hitTop = true;
+            }
+            if (this.checkCollision(this.p1Player.lasso, this.animal02) && !this.p1Player.lasso.isAttached && (this.p2Player.lasso.isAttachedTo != this.animal02)) {
+                    this.p1Player.lasso.isAttached = true;
+                    this.p1Player.lasso.isAttachedTo = this.animal02;
+                    this.p1Player.hitTop = true;
+            }
+            if (this.checkCollision(this.p1Player.lasso, this.animal01) && !this.p1Player.lasso.isAttached && (this.p2Player.lasso.isAttachedTo != this.animal01)) {
+                    this.p1Player.lasso.isAttached = true;
+                    this.p1Player.lasso.isAttachedTo = this.animal01;
+                    this.p1Player.hitTop = true;
+            }
             //check for p2 collisions
             if(this.checkCollision(this.p2Player.lasso, this.animal03) && !this.p2Player.lasso.isAttached && (this.p1Player.lasso.isAttachedTo != this.animal03)) {
                 this.p2Player.lasso.isAttached = true;
